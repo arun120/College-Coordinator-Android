@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sjitportal.home.portal">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:name="com.sjitportal.home.portal.StaticApp">
+        <activity
+            android:name="com.sjitportal.home.portal.MainActivity"
+            android:label="@string/app_name">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.sjitportal.home.portal.MainActivity_login"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sjitportal.home.portal.Home_Page"
+            android:label="Home"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.sjitportal.home.portal.Dummy"
+            android:label="@string/title_activity_dummy">
+
+            <!--
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.sjitportal.home.portal.Profile"
+            android:label="@string/title_activity_profile" />
+        <activity
+            android:name="com.sjitportal.home.portal.Notes_download"
+            android:label="Notes Download" />
+        <activity
+            android:name="com.sjitportal.home.portal.Mark_query"
+            android:label="Marks">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.sjitportal.home.portal.Attendance_query"
+            android:label="Attendance">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.sjitportal.home.portal.Note_query"
+            android:label="Notes">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.sjitportal.home.portal.Mark_display"
+            android:label="Marks"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+        <activity
+            android:name="com.sjitportal.home.portal.Deptupload_query"
+            android:label="Circulars" />
+        <activity
+            android:name="com.sjitportal.home.portal.Dept_events"
+            android:label="Events" />
+        <activity
+            android:name="com.sjitportal.home.portal.Download_view"
+            android:label="Downloads" />
+        <activity
+            android:name="com.sjitportal.home.portal.Loading"
+            android:label="@string/title_activity_loading"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar" />
+        <activity android:name="com.sjitportal.home.portal.Splash" />
+        <activity
+            android:name="com.sjitportal.home.portal.Retry"
+            android:label="@string/title_activity_retry" />
+
+        <service
+            android:name="com.sjitportal.home.portal.Notification_Alert"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name="com.sjitportal.home.portal.Notification_Broadcast"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+
+        </receiver>
+
+        <service
+            android:name="com.sjitportal.home.portal.Screen_On"
+            android:enabled="true"
+            android:exported="true"></service>
+    </application>
+
+</manifest>

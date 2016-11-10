@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sjitportal.home.portal.notesdownload"
+    android:background="#010101">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Click To Download!"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="false"
+        android:layout_marginTop="48dp"
+        android:textStyle="normal"
+        android:gravity="center_horizontal"
+        android:drawablePadding="5dp"
+
+        android:textSize="25dp"
+        android:background="@drawable/cell_shape" />
+
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/notesdownload">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/downlist">
+
+        </ListView>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <TextView android:text="hello_world" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:width="120dp"
+        android:height="50dp"
+        android:textSize="20dp"
+        android:id="@+id/cmt" />
+
+
+    </android.support.v4.widget.DrawerLayout>

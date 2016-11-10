@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+
+    android:layout_margin="1dp"
+
+    >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="5dp"
+        android:src="@drawable/unk"
+
+        android:id="@+id/image_list_res"
+        />
+
+
+        <com.rey.material.widget.TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/list_text"
+            android:paddingTop="5dp"
+            android:textColor="@color/primarytext"
+            android:paddingLeft="70dp"
+            android:paddingRight="16dp"
+            android:textDirection="locale"
+            style="@style/LightSpinnerItem"
+            />
+
+
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/delete"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/delete" />
+
+
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>

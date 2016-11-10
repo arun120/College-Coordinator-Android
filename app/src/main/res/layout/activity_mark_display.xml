@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#cccccc">
+
+        <android.support.v7.widget.Toolbar
+            style="@style/ToolBarStyle"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#500098a6"
+            android:minHeight="@dimen/abc_action_bar_default_height_material"
+            android:id="@+id/view" />
+        <!-- <include
+             android:id="@+id/toolbar_actionbar"
+             layout="@layout/toolbar_default"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"/>-->
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textStyle="normal|bold"
+            android:typeface="sans"
+            android:text="Marks"
+            android:layout_span="6"
+            android:textSize="25dp"
+            android:singleLine="false"
+            android:gravity="center"
+            android:id="@+id/comm"
+            android:textColor="#FFFFFF"
+            android:background="#0098a6" />
+
+        <GridView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/displist"
+            android:numColumns="2"
+            android:scrollbarStyle="outsideOverlay"
+            android:verticalScrollbarPosition="right"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+    </LinearLayout>
+    <!--
+        <com.example.home.portal.ScrimInsetsFrameLayout
+            android:id="@+id/scrimInsetsFrameLayout"
+            android:layout_width="@dimen/navigation_drawer_width"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:layout_gravity="start"
+            app:insetForeground="#4000"
+            android:elevation="10dp"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <fragment
+                android:id="@+id/fragment_drawer"
+                android:name="com.example.home.portal.NavigationDrawerFragment"
+                android:layout_width="@dimen/navigation_drawer_width"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                app:layout="@layout/fragment_navigation_drawer"
+                tools:layout="@layout/fragment_navigation_google" />
+        </com.example.home.portal.ScrimInsetsFrameLayout>-->
+</android.support.v4.widget.DrawerLayout>

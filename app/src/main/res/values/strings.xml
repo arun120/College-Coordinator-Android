@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Portal</string>
+    <string name="drawer_open">Menu opened</string>
+    <string name="drawer_close">Menu closed</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_home__page">Home_Page</string>
+    <string name="title_activity_dummy">Dummy</string>
+    <string name="Comment">Debug</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_notes_download">Notes_download</string>
+    <string name="title_activity_mark_query">Mark_query</string>
+    <string name="title_activity_note_query">Note_query</string>
+    <string name="title_activity_mark_display">Mark_display</string>
+    <string name="title_activity_attendance_display">Mark_display</string>
+    <string name="title_activity_deptupload_query">Deptupload_query</string>
+    <string name="title_activity_dept_events">Dept_events</string>
+    <string name="title_activity_download_view">Download_view</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_loading">Loading</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_retry">Retry</string>
+</resources>

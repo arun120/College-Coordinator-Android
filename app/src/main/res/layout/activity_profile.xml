@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:fitsSystemWindows="true" >
+
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="@drawable/white_button">
+        <include layout="@layout/collapse_bar"
+            android:id="@+id/new_bar"/>
+
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/tools"
+                android:layout_marginTop="10dp"
+                app:cardElevation="6dp"
+                app:cardUseCompatPadding="true"
+                android:id="@+id/id1">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent" android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:id="@+id/reg_img"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/reg_num" />
+
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Register Number"
+                        android:textColor="@color/primarytext"
+                        android:id="@+id/reg"
+                        android:layout_alignTop="@+id/reg_img"
+                        android:layout_alignLeft="@+id/profile_regid"
+                        android:layout_alignStart="@+id/profile_regid" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="312414104001"
+                        android:textColor="@color/secondarytext"
+                        android:id="@+id/profile_regid"
+                        android:layout_below="@+id/reg"
+                        android:layout_toRightOf="@+id/reg_img"
+                        android:layout_toEndOf="@+id/reg_img"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp" />
+
+                    <View
+                        android:layout_below="@+id/profile_regid"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_height="2dp"
+                        android:background="@color/divider" />
+                </RelativeLayout>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:paddingTop="75dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:id="@+id/image_card"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/course_ic" />
+
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Course"
+                        android:textColor="@color/primarytext"
+                        android:id="@+id/text_card_2"
+                        android:layout_alignTop="@+id/image_card"
+                        android:layout_alignLeft="@+id/profile_course"
+                        android:layout_alignStart="@+id/profile_course" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="B.E"
+                        android:textColor="@color/secondarytext"
+                        android:id="@+id/profile_course"
+                        android:layout_below="@+id/text_card_2"
+                        android:layout_toRightOf="@+id/image_card"
+                        android:layout_toEndOf="@+id/image_card"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp" />
+
+
+                    <View
+                        android:layout_below="@+id/profile_course"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_height="2dp"
+                        android:background="@color/divider" />
+                </RelativeLayout>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:layout_below="@+id/id1"
+                    android:paddingTop="150dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:id="@+id/image_card1"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/dept_ic" />
+
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Department"
+                        android:textColor="@color/primarytext"
+                        android:id="@+id/dept"
+                        android:layout_alignTop="@+id/image_card1"
+                        android:layout_alignLeft="@+id/profile_dept"
+                        android:layout_alignStart="@+id/profile_dept" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="CSE - A"
+                        android:textColor="@color/secondarytext"
+                        android:id="@+id/profile_dept"
+                        android:layout_below="@+id/dept"
+                        android:layout_toRightOf="@+id/image_card1"
+                        android:layout_toEndOf="@+id/image_card1"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp" />
+
+                    <View
+                        android:layout_below="@+id/profile_dept"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_height="2dp"
+                        android:background="@color/divider" />
+
+                </RelativeLayout>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:paddingTop="235dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:id="@+id/image_card2"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/yearn" />
+
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Year"
+                        android:textColor="@color/primarytext"
+                        android:id="@+id/text_card_l"
+                        android:layout_alignTop="@+id/image_card2"
+                        android:layout_alignLeft="@+id/profile_year"
+                        android:layout_alignStart="@+id/profile_year" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="2nd Year"
+                        android:textColor="@color/secondarytext"
+                        android:id="@+id/profile_year"
+                        android:layout_below="@+id/text_card_l"
+                        android:layout_toRightOf="@+id/image_card2"
+                        android:layout_toEndOf="@+id/image_card2"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp" />
+
+
+                </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </android.support.v4.widget.NestedScrollView>
+
+        </android.support.design.widget.CoordinatorLayout>
+    <!-- android:layout_marginTop="?android:attr/actionBarSize"-->
+    <com.sjitportal.home.portal.ScrimInsetsFrameLayout
+        android:id="@+id/scrimInsetsFrameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="start"
+        app:insetForeground="#4000"
+        android:elevation="10dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <fragment
+            android:id="@+id/fragment_drawer"
+            android:name="com.sjitportal.home.portal.NavigationDrawerFragment"
+            android:layout_width="@dimen/navigation_drawer_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:layout="@layout/fragment_navigation_drawer"
+            tools:layout="@layout/fragment_navigation_google" />
+    </com.sjitportal.home.portal.ScrimInsetsFrameLayout>
+</android.support.v4.widget.DrawerLayout>

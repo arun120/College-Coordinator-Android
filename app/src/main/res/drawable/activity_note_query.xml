@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#252525">
+
+        <include
+            android:id="@+id/toolbar_actionbar"
+            layout="@layout/toolbar_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="normal|bold"
+            android:typeface="sans"
+            android:text="Notes"
+            android:layout_span="6"
+            android:textSize="30dp"
+            android:singleLine="false"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:layout_gravity="center_vertical"
+            android:background="#1d1d1d" />
+
+
+
+        <TableRow
+            android:id="@+id/tablRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+        >
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:typeface="sans"
+                android:text="Sem"
+                android:textSize="30dp"
+                android:singleLine="false"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="left|center_vertical" />
+
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/semdrop"
+                android:layout_gravity="right"
+                android:layout_marginLeft="20dp" />
+        </TableRow>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:typeface="sans"
+            android:text="Year"
+            android:textSize="30dp"
+            android:singleLine="false"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="left|center_vertical" />
+
+
+
+        <TableRow
+            android:id="@+id/tablRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+        >
+
+
+
+
+
+            <Spinner
+
+                android:id="@+id/yeardrop"
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:drawSelectorOnTop="true"
+
+                android:background="@drawable/spinnerbtn" />
+            <!--
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/subdrop"
+                android:spinnerMode="dropdown"
+                android:layout_gravity="right"
+                android:layout_marginLeft="15dp" />
+-->
+
+        </TableRow>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TableRow
+            android:id="@+id/tablRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+        >
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:typeface="sans"
+                android:text="Sub"
+                android:textSize="30dp"
+                android:singleLine="false"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="left|center_vertical" />
+
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/subdrop"
+                android:layout_gravity="right"
+                android:layout_marginLeft="20dp" />
+        </TableRow>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <TableRow
+            android:id="@+id/tablRow3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+        >
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:typeface="sans"
+                android:text="Type"
+                android:textSize="30dp"
+                android:singleLine="false"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="left|center_vertical" />
+
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/notesdrop"
+                android:layout_gravity="right"
+                android:layout_marginLeft="20dp"
+                android:shadowRadius="3"
+                android:shadowDx="3"
+                android:shadowDy="2"
+                android:shadowColor="@android:color/black"
+                android:popupBackground="#333333"/>
+        </TableRow>
+
+
+
+        <Button
+            android:layout_width="213dp"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textStyle="bold"
+            android:id="@+id/note_submit"
+            android:textSize="20dp"
+
+            android:layout_marginTop="80dp"
+
+
+
+            android:background="@drawable/shadowbtn"
+            android:layout_gravity="center_horizontal" />
+
+
+    </LinearLayout>
+    <!-- android:layout_marginTop="?android:attr/actionBarSize"-->
+    <com.example.home.portal.ScrimInsetsFrameLayout
+        android:id="@+id/scrimInsetsFrameLayout"
+        android:layout_width="@dimen/navigation_drawer_width"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="start"
+        app:insetForeground="#4000"
+        android:elevation="10dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <fragment
+            android:id="@+id/fragment_drawer"
+            android:name="com.sjitportal.home.portal.NavigationDrawerFragment"
+            android:layout_width="@dimen/navigation_drawer_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:layout="@layout/fragment_navigation_drawer"
+            tools:layout="@layout/fragment_navigation_google" />
+    </com.example.home.portal.ScrimInsetsFrameLayout>
+</android.support.v4.widget.DrawerLayout>
+
+
+
+
+
+
