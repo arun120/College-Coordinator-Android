@@ -5,5 +5,5 @@ package com.sjitportal.home.portal;
  */
 public class ServerPath {
 
-    public static String path="http://182.74.154.218/";
+    public static String path="https://portal.stjosephstechnology.ac.in/";
 }
