@@ -15,7 +15,7 @@ public class Localdb extends SQLiteOpenHelper {
 //UPDATION OF ANY COLUMN NAME SHOULD BE DONE IN 4 PLACES ...CREATE_LINE,CLASS,INSERT PLACES
     //public static String sdbname;
     //public static String db_name=sdbname+".db";
-    public static Integer db_ver=1;
+    public static Integer db_ver=2;
 
     public Localdb(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {
@@ -76,7 +76,14 @@ public class Localdb extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        if (oldVersion == 1 && newVersion == 2) {
+            String q = "ALTER TABLE  marks_table add column unit1 varchar(10) DEFAULT NULL;";
+            db.execSQL(q);
+            q = "ALTER TABLE  marks_table add column unit2 varchar(10) DEFAULT NULL;";
+            db.execSQL(q);
+            q = "ALTER TABLE  marks_table add column unit3 varchar(10) DEFAULT NULL;";
+            db.execSQL(q);
+        }
     }
 
     public void adddpicture(byte[] s )
@@ -168,6 +175,9 @@ public class Localdb extends SQLiteOpenHelper {
         values.put("cycle3",s.getCycle3());
         values.put("cycle2",s.getCycle2());
         values.put("model3", s.getModel3());
+        values.put("unit1",s.getUnit1());
+        values.put("unit2",s.getUnit2());
+        values.put("unit3", s.getUnit3());
         SQLiteDatabase db = getWritableDatabase();
         db.insert("marks_table",null,values);
         db.close();
@@ -404,6 +414,19 @@ public class Localdb extends SQLiteOpenHelper {
                 if(c.getString(c.getColumnIndex("sem"))!=null) {
 
                     s[i].setSem(c.getString(c.getColumnIndex("sem")));
+                }
+                if(c.getString(c.getColumnIndex("unit1"))!=null) {
+
+                    s[i].setCycle1(c.getString(c.getColumnIndex("unit1")));
+                }
+                if(c.getString(c.getColumnIndex("unit2"))!=null) {
+
+                    s[i].setCycle2(c.getString(c.getColumnIndex("unit2")));
+                }
+
+                if(c.getString(c.getColumnIndex("unit3"))!=null) {
+
+                    s[i].setCycle3(c.getString(c.getColumnIndex("unit3")));
                 }
             }
             c.moveToNext();

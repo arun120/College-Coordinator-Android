@@ -671,6 +671,9 @@ public class Query_execute extends Activity{
                             s[i].setModel1(rs.getString("model1"));
                             s[i].setModel2(rs.getString("model2"));
                             s[i].setModel3(rs.getString("model3"));
+                            s[i].setUnit1(rs.getString("unit1"));
+                            s[i].setUnit2(rs.getString("unit2"));
+                            s[i].setUnit3(rs.getString("unit3"));
 
                             i++;
                         }

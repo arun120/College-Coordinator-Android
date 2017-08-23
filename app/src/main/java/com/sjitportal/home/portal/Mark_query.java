@@ -138,6 +138,9 @@ public class Mark_query extends ActionBarActivity implements NavigationDrawerCal
                 if (position != 0) {
                     List<String> examl = new ArrayList<String>();
                     examl.add("Select Exam");
+                    examl.add("unit1");
+                    examl.add("unit2");
+                    examl.add("unit3");
                     examl.add("cycle1");
                     examl.add("cycle2");
                     examl.add("cycle3");
