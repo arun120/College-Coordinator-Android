@@ -41,8 +41,8 @@ static {
     bm.compress(Bitmap.CompressFormat.JPEG, 0, baos);
     byte[] b = baos.toByteArray();
     String a= Base64.encodeToString(b, Base64.DEFAULT);
-    Log.i("Code Decrypted 1", enc.substring(5,15)+"    "+enc.substring(91,101));
-    Log.i("Code Decrypted 2", a.substring(250,260)+"    "+a.substring(310,320));
+  //  Log.i("Code Decrypted 1", enc.substring(5,15)+"    "+enc.substring(91,101));
+   // Log.i("Code Decrypted 2", a.substring(250,260)+"    "+a.substring(310,320));
 //    Toast.makeText(StaticApp.getContext(),a.substring(250,260)+"    "+a.substring(310,320),Toast.LENGTH_LONG).show();
     UserName="Android7";
     Pass=enc.substring(5,15)+enc.substring(91,101);

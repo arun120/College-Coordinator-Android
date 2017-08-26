@@ -65,7 +65,7 @@ public class Localdb extends SQLiteOpenHelper {
         db.execSQL(q);
 
         //Cycle and Model marks
-        q="CREATE TABLE IF NOT EXISTS  marks_table (rollno varchar(10) DEFAULT NULL,sem varchar(2) DEFAULT NULL,  subcode varchar(10) DEFAULT NULL,cycle1 varchar(10) DEFAULT NULL,  model1 varchar(10) DEFAULT NULL,cycle2 varchar(10) DEFAULT NULL,  model2 varchar(10) DEFAULT NULL,  cycle3 varchar(10) DEFAULT NULL,  model3 varchar(10) DEFAULT NULL);";
+        q="CREATE TABLE IF NOT EXISTS  marks_table (rollno varchar(10) DEFAULT NULL,sem varchar(2) DEFAULT NULL,  subcode varchar(10) DEFAULT NULL,cycle1 varchar(10) DEFAULT NULL,  model1 varchar(10) DEFAULT NULL,cycle2 varchar(10) DEFAULT NULL,  model2 varchar(10) DEFAULT NULL,  cycle3 varchar(10) DEFAULT NULL,  model3 varchar(10) DEFAULT NULL,unit1 varchar(10) DEFAULT NULL,  unit2 varchar(10) DEFAULT NULL,  unit3 varchar(10) DEFAULT NULL);";
         db.execSQL(q);
 
 
