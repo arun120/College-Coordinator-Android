@@ -2,6 +2,7 @@ package com.sjitportal.home.portal;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -650,34 +651,71 @@ public class Query_execute extends Activity{
                 stmt = conn.createStatement();
                 String sql=params[0];
                 ResultSet rs;
-
+                //"select * from marks_table where rollno='" + rn + "' and sem='" + semgiven + "' and " + examgiven + "<>'null';";
+                String sem=sql.substring(sql.indexOf("sem=")+5,sql.indexOf("sem=")+7);
+                sql=sql.replace("_table", "").substring(0,sql.indexOf("and sem")-6)+"and subcode in (SELECT subcode FROM subject_sem_table where sem='"+sem+"')";
                 rs=stmt.executeQuery(sql);
 
 
                 if(rs.next()) {
 
-                    int i=0;
+                    int i=-1;
                     try {
                         rs.beforeFirst();
+                        String subcode="";
                         while(rs.next())
                         {
-                            s[i]=new Marks();
-                            s[i].setSubcode(rs.getString("subcode"));
-                            s[i].setSem(rs.getString("sem"));
-                            s[i].setRollno(rs.getString("rollno"));
-                            s[i].setCycle1(rs.getString("cycle1"));
-                            s[i].setCycle2(rs.getString("cycle2"));
-                            s[i].setCycle3(rs.getString("cycle3"));
-                            s[i].setModel1(rs.getString("model1"));
-                            s[i].setModel2(rs.getString("model2"));
-                            s[i].setModel3(rs.getString("model3"));
-                            s[i].setUnit1(rs.getString("unit1"));
-                            s[i].setUnit2(rs.getString("unit2"));
-                            s[i].setUnit3(rs.getString("unit3"));
 
-                            i++;
+                            if(!subcode.equals(rs.getString("subcode"))) {
+
+                                i++;
+                                subcode=rs.getString("subcode");
+                                s[i] = new Marks();
+                                s[i].setSubcode(rs.getString("subcode"));
+                                s[i].setSem(sem);
+                                s[i].setRollno(rs.getString("rollno"));
+
+                            }
+                            String type=rs.getString("type");
+
+
+                            switch (type){
+                                case  "cycle1":
+                                    s[i].setCycle1(rs.getString("mark"));
+                                    break;
+                                case "cycle2":
+                                    s[i].setCycle2(rs.getString("mark"));
+                                    break;
+                                case "cycle3":
+                                    s[i].setCycle3(rs.getString("mark"));
+                                    break;
+                                case  "model1":
+                                    s[i].setModel1(rs.getString("mark"));
+                                    break;
+                                case "model2":
+                                    s[i].setModel2(rs.getString("mark"));
+                                    break;
+                                case "model3":
+                                    s[i].setModel3(rs.getString("mark"));
+                                    break;
+                                case  "unit1":
+                                    s[i].setUnit1(rs.getString("mark"));
+                                    break;
+                                case "unit2":
+                                    s[i].setUnit2(rs.getString("mark"));
+                                    break;
+                                case "unit3":
+                                    s[i].setUnit3(rs.getString("mark"));
+                                    break;
+
+
+                            }
+
+
                         }
-                        s[i]=new Marks();
+
+                        i++;
+                        s[i] = new Marks();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -1016,8 +1054,6 @@ public class Query_execute extends Activity{
 
 
     }
-
-
 
 
 

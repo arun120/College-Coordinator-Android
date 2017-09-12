@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.ContentValues;
+import android.provider.Settings;
 import android.util.Log;
 
 /**
@@ -165,6 +166,7 @@ public class Localdb extends SQLiteOpenHelper {
 
     public void addmarks(Marks s)
     {
+
         ContentValues values=new ContentValues();
         values.put("sem",s.getSem());
         values.put("subcode",s.getSubcode());
@@ -417,16 +419,16 @@ public class Localdb extends SQLiteOpenHelper {
                 }
                 if(c.getString(c.getColumnIndex("unit1"))!=null) {
 
-                    s[i].setCycle1(c.getString(c.getColumnIndex("unit1")));
+                    s[i].setUnit1(c.getString(c.getColumnIndex("unit1")));
                 }
                 if(c.getString(c.getColumnIndex("unit2"))!=null) {
 
-                    s[i].setCycle2(c.getString(c.getColumnIndex("unit2")));
+                    s[i].setUnit2(c.getString(c.getColumnIndex("unit2")));
                 }
 
                 if(c.getString(c.getColumnIndex("unit3"))!=null) {
 
-                    s[i].setCycle3(c.getString(c.getColumnIndex("unit3")));
+                    s[i].setUnit3(c.getString(c.getColumnIndex("unit3")));
                 }
             }
             c.moveToNext();
