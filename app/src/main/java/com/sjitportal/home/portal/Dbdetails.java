@@ -73,7 +73,7 @@ static {
         return UserName;
     }
 
-    public String getPass() {
+    public static String getPass() {
         return Pass;
     }
 

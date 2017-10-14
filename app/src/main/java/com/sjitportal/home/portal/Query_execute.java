@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -650,62 +654,67 @@ public class Query_execute extends Activity{
                 Statement stmt=null;
                 stmt = conn.createStatement();
                 String sql=params[0];
-                ResultSet rs;
+                //ResultSet rs;
                 //"select * from marks_table where rollno='" + rn + "' and sem='" + semgiven + "' and " + examgiven + "<>'null';";
                 String sem=sql.substring(sql.indexOf("sem=")+5,sql.indexOf("sem=")+7);
+                String rollno=sql.substring(sql.indexOf("rollno=")+8, sql.indexOf("and")-2);
                 sql=sql.replace("_table", "").substring(0,sql.indexOf("and sem")-6)+"and subcode in (SELECT subcode FROM subject_sem_table where sem='"+sem+"')";
-                rs=stmt.executeQuery(sql);
 
+                //rs=stmt.executeQuery(sql);
 
-                if(rs.next()) {
+                String rs=HTTPClient.get(ServerPath.path+"/RESTful/mark/"+Dbdetails.getPass()+"/"+rollno+"/"+sem+"","");
+                JSONParser parser=new JSONParser();
+                JSONArray jsonArr=  (JSONArray) parser.parse(rs);
+                if(jsonArr.size()!=0) {
 
                     int i=-1;
                     try {
-                        rs.beforeFirst();
-                        String subcode="";
-                        while(rs.next())
-                        {
 
-                            if(!subcode.equals(rs.getString("subcode"))) {
+                        String subcode="";
+                        for(Object obj:jsonArr)
+                        {
+                            JSONObject json=(JSONObject)obj;
+
+                            if(!subcode.equals(json.get("subcode"))) {
 
                                 i++;
-                                subcode=rs.getString("subcode");
+                                subcode=(String)json.get("subcode");
                                 s[i] = new Marks();
-                                s[i].setSubcode(rs.getString("subcode"));
+                                s[i].setSubcode((String)json.get("subcode"));
                                 s[i].setSem(sem);
-                                s[i].setRollno(rs.getString("rollno"));
+                                s[i].setRollno((String)json.get("rollno"));
 
                             }
-                            String type=rs.getString("type");
+                            String type=(String)json.get("type");
 
 
                             switch (type){
                                 case  "cycle1":
-                                    s[i].setCycle1(rs.getString("mark"));
+                                    s[i].setCycle1((String)json.get("mark"));
                                     break;
                                 case "cycle2":
-                                    s[i].setCycle2(rs.getString("mark"));
+                                    s[i].setCycle2((String)json.get("mark"));
                                     break;
                                 case "cycle3":
-                                    s[i].setCycle3(rs.getString("mark"));
+                                    s[i].setCycle3((String)json.get("mark"));
                                     break;
                                 case  "model1":
-                                    s[i].setModel1(rs.getString("mark"));
+                                    s[i].setModel1((String)json.get("mark"));
                                     break;
                                 case "model2":
-                                    s[i].setModel2(rs.getString("mark"));
+                                    s[i].setModel2((String)json.get("mark"));
                                     break;
                                 case "model3":
-                                    s[i].setModel3(rs.getString("mark"));
+                                    s[i].setModel3((String)json.get("mark"));
                                     break;
                                 case  "unit1":
-                                    s[i].setUnit1(rs.getString("mark"));
+                                    s[i].setUnit1((String)json.get("mark"));
                                     break;
                                 case "unit2":
-                                    s[i].setUnit2(rs.getString("mark"));
+                                    s[i].setUnit2((String)json.get("mark"));
                                     break;
                                 case "unit3":
-                                    s[i].setUnit3(rs.getString("mark"));
+                                    s[i].setUnit3((String)json.get("mark"));
                                     break;
 
 
@@ -716,7 +725,7 @@ public class Query_execute extends Activity{
 
                         i++;
                         s[i] = new Marks();
-                    } catch (SQLException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
