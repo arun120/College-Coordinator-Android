@@ -238,8 +238,8 @@ public class Notification_Alert extends Service {
            //Toast.makeText(getApplicationContext(),String.valueOf(sno),Toast.LENGTH_SHORT).show();
           //  Toast.makeText(getApplicationContext(),String.valueOf(sharedPreferences.getInt("DeptCircular",1)),Toast.LENGTH_SHORT).show();
 
-
-
+            mWakeLock.release();
+            stopSelf();
         }
 
         void sendNotification(Intent intent,String type,String description,int id){
@@ -263,7 +263,6 @@ public class Notification_Alert extends Service {
                             .setSound(sounduri)
                             .setSmallIcon(R.drawable.ic_launcher)
                             .setContentIntent(pIntent)
-
                             .setAutoCancel(true);
 
 
@@ -292,7 +291,7 @@ public class Notification_Alert extends Service {
 
     public void onDestroy() {
         super.onDestroy();
-        mWakeLock.release();
+
     }
 
 }
