@@ -3,6 +3,7 @@ package com.sjitportal.home.portal;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -118,6 +119,7 @@ public class RecyclerViewAdapternew extends RecyclerView.Adapter<RecyclerViewAda
     public void add(int location, String iName, int iValue){
         itemsName.add(location, iName);
         itemsValue.add(location,iValue);
+        Log.i("value",String.valueOf(iValue));
         notifyItemInserted(location);
     }
 

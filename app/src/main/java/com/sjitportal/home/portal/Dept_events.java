@@ -112,11 +112,11 @@ public class Dept_events extends ActionBarActivity implements NavigationDrawerCa
             int i=0;
 
             if(c[i].getName()==null)
-                myadapter.add(myadapter.getItemCount(),"No Events Found", R.drawable.doc);
+                myadapter.add(myadapter.getItemCount(),"No Events Found", 0);
 
             while(c[i].getName()!=null) {
 
-
+            Log.i("event ",c[i].getName()+" "+getImage(c[i].getName()) );
             myadapter.add(myadapter.getItemCount(),
                         c[i].getDesc(), getImage(c[i].getName()));
 
@@ -165,6 +165,7 @@ public class Dept_events extends ActionBarActivity implements NavigationDrawerCa
             while(d[i].getName()!=null) {
 
                 c[j++]=d[i];
+                Log.i("datas",d[i].getName());
                 i++;
             }
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Process;
 import android.util.Log;
 
 import org.json.simple.JSONArray;
@@ -15,6 +16,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Home on 20-08-2015.
@@ -25,9 +28,10 @@ import java.sql.Statement;
 
 public class Query_execute extends Activity{
 
+
     private String dbname;
     public String abc="start";
-
+    static final String HEADER="Content-Type=application/json&api-key="+Dbdetails.getPass();
     Localdb ldb;
 
     Query_execute() throws Internet_Exception {
@@ -637,12 +641,13 @@ public class Query_execute extends Activity{
     private class Dbconnectformarks extends AsyncTask<String,Void,Void>
     {
         // public String ret=new String();
-        public Marks[] s=new Marks[100];
+        public Marks[] s=new Marks[10];
+        List<Marks> list=new ArrayList<>();
 
         @Override
         protected Void doInBackground(String... params) {
+            Process.setThreadPriority(Process.THREAD_PRIORITY_MORE_FAVORABLE);
             Dbdetails db=new Dbdetails();
-
 
             Connection conn=null;
             try
@@ -661,28 +666,33 @@ public class Query_execute extends Activity{
                 sql=sql.replace("_table", "").substring(0,sql.indexOf("and sem")-6)+"and subcode in (SELECT subcode FROM subject_sem_table where sem='"+sem+"')";
 
                 //rs=stmt.executeQuery(sql);
-
-                String rs=HTTPClient.get(ServerPath.path+"/RESTful/mark/"+Dbdetails.getPass()+"/"+rollno+"/"+sem+"","");
+                Log.i("Rest Request","sent");
+                String rs=HTTPClient.post(ServerPath.path+"/RESTful/mark",HEADER,"{" +
+                        " \"rollno\" : \""+rollno+ "\","
+                        +" \"sem\" : \""+sem+"\" "
+                        +"}",null);
+                Log.i("rest response","received");
                 JSONParser parser=new JSONParser();
                 JSONArray jsonArr=  (JSONArray) parser.parse(rs);
                 if(jsonArr.size()!=0) {
 
-                    int i=-1;
+
                     try {
 
                         String subcode="";
                         for(Object obj:jsonArr)
                         {
+                            Marks s = new Marks();
                             JSONObject json=(JSONObject)obj;
 
                             if(!subcode.equals(json.get("subcode"))) {
 
-                                i++;
+
                                 subcode=(String)json.get("subcode");
-                                s[i] = new Marks();
-                                s[i].setSubcode((String)json.get("subcode"));
-                                s[i].setSem(sem);
-                                s[i].setRollno((String)json.get("rollno"));
+
+                                s.setSubcode((String)json.get("subcode"));
+                                s.setSem(sem);
+                                s.setRollno((String)json.get("rollno"));
 
                             }
                             String type=(String)json.get("type");
@@ -690,41 +700,44 @@ public class Query_execute extends Activity{
 
                             switch (type){
                                 case  "cycle1":
-                                    s[i].setCycle1((String)json.get("mark"));
+                                    s.setCycle1((String)json.get("mark"));
                                     break;
                                 case "cycle2":
-                                    s[i].setCycle2((String)json.get("mark"));
+                                    s.setCycle2((String)json.get("mark"));
                                     break;
                                 case "cycle3":
-                                    s[i].setCycle3((String)json.get("mark"));
+                                    s.setCycle3((String)json.get("mark"));
                                     break;
                                 case  "model1":
-                                    s[i].setModel1((String)json.get("mark"));
+                                    s.setModel1((String)json.get("mark"));
                                     break;
                                 case "model2":
-                                    s[i].setModel2((String)json.get("mark"));
+                                    s.setModel2((String)json.get("mark"));
                                     break;
                                 case "model3":
-                                    s[i].setModel3((String)json.get("mark"));
+                                    s.setModel3((String)json.get("mark"));
                                     break;
                                 case  "unit1":
-                                    s[i].setUnit1((String)json.get("mark"));
+                                    s.setUnit1((String)json.get("mark"));
                                     break;
                                 case "unit2":
-                                    s[i].setUnit2((String)json.get("mark"));
+                                    s.setUnit2((String)json.get("mark"));
                                     break;
                                 case "unit3":
-                                    s[i].setUnit3((String)json.get("mark"));
+                                    s.setUnit3((String)json.get("mark"));
                                     break;
 
 
                             }
 
-
+                            list.add(s);
                         }
 
-                        i++;
-                        s[i] = new Marks();
+                        if(list.isEmpty())
+                            s[0]=new Marks();
+                        else
+                        s= (Marks[]) list.toArray();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -913,12 +926,22 @@ public class Query_execute extends Activity{
     {
         Dbconnectformarks dbs=new Dbconnectformarks();
 
-        dbs.execute(sql);
-        while(abc.equals("start")){}
+        dbs.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,sql);
+        try {
+            Process.setThreadPriority(Process.THREAD_PRIORITY_LOWEST);
+            while(abc.equals("start")) {
+
+            Thread.sleep(100);
+        }
+        } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         if(abc.equals("found"))
         {
             abc="start";
-
+            if(dbs.s[0]==null)
+                dbs.s[0]=new Marks();
             return dbs.s;
 
 

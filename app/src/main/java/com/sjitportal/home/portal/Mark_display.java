@@ -28,7 +28,25 @@ public class Mark_display extends AppCompatActivity{
 
     @Override
     protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mark_display);
+
+
+        rn = getIntent().getExtras().getString("rollno");
+        u=getIntent().getExtras().getString("Usr");
+        exam = getIntent().getExtras().getString("exam");
+        sem=getIntent().getExtras().getString("sem");
+        sql=getIntent().getExtras().getString("sql");
+        comm=(TextView) findViewById(R.id.comm);
+        disp=(GridView) findViewById(R.id.displist);
+
         Marks[] c;
+        Log.i("Request ","Started");
         c=callmarks(sql);
 
 
@@ -60,30 +78,7 @@ public class Mark_display extends AppCompatActivity{
 
         MyAdapter adapter = new MyAdapter(this,
                 R.layout.grid_text, list);
-            disp.setAdapter(adapter);
-        super.onStart();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mark_display);
-
-
-
-
-
-        rn = getIntent().getExtras().getString("rollno");
-        u=getIntent().getExtras().getString("Usr");
-        exam = getIntent().getExtras().getString("exam");
-        sem=getIntent().getExtras().getString("sem");
-        sql=getIntent().getExtras().getString("sql");
-        comm=(TextView) findViewById(R.id.comm);
-        disp=(GridView) findViewById(R.id.displist);
-
-
-
-
+        disp.setAdapter(adapter);
 
 
     }
@@ -181,7 +176,7 @@ public class Mark_display extends AppCompatActivity{
         Marks b[] ;
         Localdb db = new Localdb(this, Find.dept(rn), null, 1);
         b = db.outmarks(sql);
-
+       // Log.i("Local DB","Over");
         if (b[0].getSem() == null || refresh==1) {
 
             Marks[] c = new Marks[100];
@@ -197,18 +192,20 @@ public class Mark_display extends AppCompatActivity{
                 c[0]=new Marks();
                 return c;
             }
+            Log.i("Internet call","start");
             c = qe.onmarks(sql);
+            Log.i("Internet call","finished");
             if (c[0].getSem() != null) {
 
 
-                Log.d("delete","requested");
+               // Log.d("delete","requested");
 
                 db.delmarks(sem);
 
 
                 for (int i = 0; c[i].getSem() != null; i++)
                     db.addmarks(c[i]);
-
+              //  Log.i("delerte N add ","over");
                 return c;
 
 
