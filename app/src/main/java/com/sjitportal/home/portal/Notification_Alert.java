@@ -1,5 +1,6 @@
 package com.sjitportal.home.portal;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,9 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.os.PowerManager;
+import android.os.SystemClock;
 import android.util.Log;
 
 import java.sql.Connection;
@@ -27,6 +31,7 @@ public class Notification_Alert extends Service {
     Runnable runnable =null;
     SharedPreferences sharedPreferences=null;
     SharedPreferences.Editor edit=null;
+    private PowerManager.WakeLock mWakeLock;
 
     public Notification_Alert() {
     }
@@ -38,8 +43,18 @@ public class Notification_Alert extends Service {
         Log.i("Notification", "Oncreate");
     }
 
+
+
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+
+        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"TAG" );
+        mWakeLock.acquire();
+
+
 
         int sno=0;
         sharedPreferences= getSharedPreferences("Notification", Context.MODE_PRIVATE);
@@ -66,12 +81,12 @@ public class Notification_Alert extends Service {
 
                 Log.i("Notification", "expecting");
                 //Toast.makeText(getApplicationContext(),"dbcalled",Toast.LENGTH_SHORT).show();
-                handler.postDelayed(runnable,1000*60*2);//2hrs
+               // handler.postDelayed(runnable,1000*60*2);//2hrs
 
             }
         };
 
-        handler.postDelayed(runnable,15000);
+        handler.postDelayed(runnable,1000);
 
 
 
@@ -120,25 +135,21 @@ public class Notification_Alert extends Service {
                 rs.close();
 
                 if(stmt!=null)
-                stmt.close();
-                if(conn!=null)
-                    conn.close();
-                conn= DriverManager.getConnection(db1.getUrl(), db1.getUserName(), db1.getPass());
-                stmt=conn.createStatement();
-                rs=stmt.executeQuery("select * from exam_circular");
+
+                rs=stmt.executeQuery("select * from sjitportal.exam_circular");
                 if(rs.last()) {
                     examcir=rs.getInt("sno");
                     description[2]=rs.getString("descp");
                 }
                 rs.close();
-                rs=stmt.executeQuery("select * from circular where type='circular'");
+                rs=stmt.executeQuery("select * from sjitportal.circular where type='circular'");
                 if(rs.last()) {
                     clgcir=rs.getInt("sno");
                     description[3]=rs.getString("des");
                 }
                 rs.close();
 
-                rs=stmt.executeQuery("select * from circular where type='event'");
+                rs=stmt.executeQuery("select * from sjitportal.circular where type='event'");
                 if(rs.last()) {
                     clgevent=rs.getInt("sno");
                     description[4]=rs.getString("des");
@@ -227,8 +238,8 @@ public class Notification_Alert extends Service {
            //Toast.makeText(getApplicationContext(),String.valueOf(sno),Toast.LENGTH_SHORT).show();
           //  Toast.makeText(getApplicationContext(),String.valueOf(sharedPreferences.getInt("DeptCircular",1)),Toast.LENGTH_SHORT).show();
 
-
-
+            mWakeLock.release();
+            stopSelf();
         }
 
         void sendNotification(Intent intent,String type,String description,int id){
@@ -252,7 +263,6 @@ public class Notification_Alert extends Service {
                             .setSound(sounduri)
                             .setSmallIcon(R.drawable.ic_launcher)
                             .setContentIntent(pIntent)
-
                             .setAutoCancel(true);
 
 
@@ -278,4 +288,12 @@ public class Notification_Alert extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }
+
+

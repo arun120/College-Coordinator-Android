@@ -2,14 +2,22 @@ package com.sjitportal.home.portal;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Process;
 import android.util.Log;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Home on 20-08-2015.
@@ -20,9 +28,10 @@ import java.sql.Statement;
 
 public class Query_execute extends Activity{
 
+
     private String dbname;
     public String abc="start";
-
+    static final String HEADER="Content-Type=application/json&api-key="+Dbdetails.getPass();
     Localdb ldb;
 
     Query_execute() throws Internet_Exception {
@@ -633,11 +642,12 @@ public class Query_execute extends Activity{
     {
         // public String ret=new String();
         public Marks[] s=new Marks[100];
+        List<Marks> list=new ArrayList<>();
 
         @Override
         protected Void doInBackground(String... params) {
+            Process.setThreadPriority(Process.THREAD_PRIORITY_MORE_FAVORABLE);
             Dbdetails db=new Dbdetails();
-
 
             Connection conn=null;
             try
@@ -649,33 +659,92 @@ public class Query_execute extends Activity{
                 Statement stmt=null;
                 stmt = conn.createStatement();
                 String sql=params[0];
-                ResultSet rs;
+                //ResultSet rs;
+                //"select * from marks_table where rollno='" + rn + "' and sem='" + semgiven + "' and " + examgiven + "<>'null';";
+                String sem=sql.substring(sql.indexOf("sem=")+5,sql.indexOf("sem=")+7);
+                String rollno=sql.substring(sql.indexOf("rollno=")+8, sql.indexOf("and")-2);
+                sql=sql.replace("_table", "").substring(0,sql.indexOf("and sem")-6)+"and subcode in (SELECT subcode FROM subject_sem_table where sem='"+sem+"')";
 
-                rs=stmt.executeQuery(sql);
+                //rs=stmt.executeQuery(sql);
+                Log.i("Rest Request","sent");
+                String rs=HTTPClient.post(ServerPath.path+"/RESTful/mark",HEADER,"{" +
+                        " \"rollno\" : \""+rollno+ "\","
+                        +" \"sem\" : \""+sem+"\" "
+                        +"}",null);
+                Log.i("rest response","received");
+                JSONParser parser=new JSONParser();
+                JSONArray jsonArr=  (JSONArray) parser.parse(rs);
+                if(jsonArr.size()!=0) {
 
 
-                if(rs.next()) {
-
-                    int i=0;
                     try {
-                        rs.beforeFirst();
-                        while(rs.next())
-                        {
-                            s[i]=new Marks();
-                            s[i].setSubcode(rs.getString("subcode"));
-                            s[i].setSem(rs.getString("sem"));
-                            s[i].setRollno(rs.getString("rollno"));
-                            s[i].setCycle1(rs.getString("cycle1"));
-                            s[i].setCycle2(rs.getString("cycle2"));
-                            s[i].setCycle3(rs.getString("cycle3"));
-                            s[i].setModel1(rs.getString("model1"));
-                            s[i].setModel2(rs.getString("model2"));
-                            s[i].setModel3(rs.getString("model3"));
 
-                            i++;
+                        String subcode="";
+                        for(Object obj:jsonArr)
+                        {
+                            Marks m = new Marks();
+
+                            JSONObject json=(JSONObject)obj;
+                            System.out.println("Server "+ json.get("subcode"));
+
+
+                                m.setSubcode((String)json.get("subcode"));
+                                m.setSem(sem);
+                                m.setRollno((String)json.get("rollno"));
+
+
+
+                            String type=(String)json.get("type");
+                            System.out.println(type+" "+(String)json.get("mark"));
+
+                            switch (type){
+                                case  "cycle1":
+                                    m.setCycle1((String)json.get("mark"));
+                                    break;
+                                case "cycle2":
+                                    m.setCycle2((String)json.get("mark"));
+                                    break;
+                                case "cycle3":
+                                    m.setCycle3((String)json.get("mark"));
+                                    break;
+                                case  "model1":
+                                    m.setModel1((String)json.get("mark"));
+                                    break;
+                                case "model2":
+                                    m.setModel2((String)json.get("mark"));
+                                    break;
+                                case "model3":
+                                    m.setModel3((String)json.get("mark"));
+                                    break;
+                                case  "unit1":
+                                    m.setUnit1((String)json.get("mark"));
+                                    break;
+                                case "unit2":
+                                    m.setUnit2((String)json.get("mark"));
+                                    break;
+                                case "unit3":
+                                    m.setUnit3((String)json.get("mark"));
+                                    break;
+                                case "unit4":
+                                    m.setUnit4((String)json.get("mark"));
+                                    break;
+
+                            }
+
+                            list.add(m);
+
                         }
-                        s[i]=new Marks();
-                    } catch (SQLException e) {
+
+                        if(list.isEmpty())
+                            s[0]=new Marks();
+                        else {
+                            list.toArray(s);
+                            s[list.size()] = new Marks();
+                            for(Marks a:s)
+                                if(a!=null)
+                                    System.out.println("Return "+a.getSubcode());
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -863,12 +932,22 @@ public class Query_execute extends Activity{
     {
         Dbconnectformarks dbs=new Dbconnectformarks();
 
-        dbs.execute(sql);
-        while(abc.equals("start")){}
+        dbs.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,sql);
+        try {
+            Process.setThreadPriority(Process.THREAD_PRIORITY_LOWEST);
+            while(abc.equals("start")) {
+
+            Thread.sleep(100);
+        }
+        } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         if(abc.equals("found"))
         {
             abc="start";
-
+            if(dbs.s[0]==null)
+                dbs.s[0]=new Marks();
             return dbs.s;
 
 
@@ -1013,8 +1092,6 @@ public class Query_execute extends Activity{
 
 
     }
-
-
 
 
 

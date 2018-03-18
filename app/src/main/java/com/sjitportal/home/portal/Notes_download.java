@@ -36,6 +36,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class Notes_download extends AppCompatActivity implements RecyclerViewAdapternew.OnItemClickListener {
 
 
@@ -272,7 +274,7 @@ public class Notes_download extends AppCompatActivity implements RecyclerViewAda
 
         downloaded = new Download();
         downloaded.setType("notes");
-        d[position].setFilename(d[position].getFilename().replace(" ","%20"));
+        d[position].setFilename(d[position].getFilename());
         downloaded.setName(d[position].getSem()+"»"+d[position].getSubcode()+"»"+d[position].getDescp()+"»"+d[position].getFilename());
         downloaded.setPath(d[position].getPath());
 
@@ -301,18 +303,19 @@ public class Notes_download extends AppCompatActivity implements RecyclerViewAda
         protected String doInBackground(String... sUrl) {
             InputStream input = null;
             Log.i("setup", "started");
-            HttpURLConnection connection = null;
+            HttpsURLConnection connection = null;
             try {
+                sUrl[1]=sUrl[1].replace("&","%26").replace(" ","%20");
                 URL url = new URL(ServerPath.path+"AndroidNotes?rollno="+sUrl[0]+"&filename="+sUrl[1]+"&path="+sUrl[2]);
                 Log.i("url",url.toString());
-                connection = (HttpURLConnection) url.openConnection();
+                connection = (HttpsURLConnection) url.openConnection();
                 connection.connect();
                 connection.getResponseCode();
 
 
                 // expect HTTP 200 OK, so we don't mistakenly save error report
                 // instead of the file
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                if (connection.getResponseCode() != HttpsURLConnection.HTTP_OK) {
                     System.out.println("Server returned HTTP " + connection.getResponseCode()
                             + " " + connection.getResponseMessage());
                 }
@@ -391,15 +394,15 @@ public class Notes_download extends AppCompatActivity implements RecyclerViewAda
 
             InputStream input = null;
             OutputStream output = null;
-            HttpURLConnection connection = null;
+            HttpsURLConnection connection = null;
             try {
                 URL url = new URL(sUrl[0]);
-                connection = (HttpURLConnection) url.openConnection();
+                connection = (HttpsURLConnection) url.openConnection();
                 connection.connect();
 
                 // expect HTTP 200 OK, so we don't mistakenly save error report
                 // instead of the file
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                if (connection.getResponseCode() != HttpsURLConnection.HTTP_OK) {
                     return "Server returned HTTP " + connection.getResponseCode()
                             + " " + connection.getResponseMessage();
                 }
@@ -413,6 +416,7 @@ public class Notes_download extends AppCompatActivity implements RecyclerViewAda
                 File f=new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Portal/");
                 if(!f.exists())
                 f.mkdir();
+                sUrl[1]=sUrl[1].replace("%26","&").replace("%20"," ");
                 output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Portal/"+sUrl[1]);
 
                 byte data[] = new byte[4096];
@@ -432,14 +436,14 @@ public class Notes_download extends AppCompatActivity implements RecyclerViewAda
                 }
                     //For deleting
                     url=new URL(ServerPath.path+"AndroidDelDir?rollno="+rn);
-                    connection = (HttpURLConnection) url.openConnection();
+                    connection = (HttpsURLConnection) url.openConnection();
                     connection.connect();
                     connection.getResponseCode();
 
 
                     // expect HTTP 200 OK, so we don't mistakenly save error report
                     // instead of the file
-                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    if (connection.getResponseCode() != HttpsURLConnection.HTTP_OK) {
                         System.out.println("Server returned HTTP " + connection.getResponseCode()
                                 + " " + connection.getResponseMessage());
                     }

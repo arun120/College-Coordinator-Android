@@ -14,7 +14,26 @@ public class Marks {
     private String  model2;
     private String  cycle3;
     private String  model3;
+    private String  unit1;
+    private String  unit2;
+    private String  unit3;
+    private String unit4;
 
+    public String getUnit4() {
+        return unit4;
+    }
+
+    public void setUnit4(String unit4) {
+        this.unit4 = unit4;
+    }
+
+    public String getUnit1() {
+        return unit1;
+    }
+
+    public void setUnit1(String unit1) {
+        this.unit1 = unit1;
+    }
 
     public void setRollno(String rollno) {
         this.rollno = rollno;
@@ -88,12 +107,29 @@ public class Marks {
         return model3;
     }
 
+    public String getUnit2() {
+        return unit2;
+    }
+
+    public void setUnit2(String unit2) {
+        this.unit2 = unit2;
+    }
+
+    public String getUnit3() {
+        return unit3;
+    }
+
+    public void setUnit3(String unit3) {
+        this.unit3 = unit3;
+    }
+
     public String mark(String exam)
     {
         if(exam.equals("cycle1"))
             return getCycle1();
         else if(exam.equals("cycle2"))
             return getCycle2();
+
 
         else if(exam.equals("cycle3"))
             return getCycle3();
@@ -106,7 +142,14 @@ public class Marks {
 
         else if(exam.equals("model3"))
             return getModel3();
-
+        else if(exam.equals("unit1"))
+            return getUnit1();
+        else if(exam.equals("unit2"))
+            return getUnit2();
+        else if(exam.equals("unit3"))
+            return getUnit3();
+        else if (exam.equals("unit4"))
+            return getUnit4();
         return null;
 
     }

@@ -38,6 +38,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Dept_events extends ActionBarActivity implements NavigationDrawerCallbacks,RecyclerViewAdapternew.OnItemClickListener{
@@ -110,11 +112,11 @@ public class Dept_events extends ActionBarActivity implements NavigationDrawerCa
             int i=0;
 
             if(c[i].getName()==null)
-                myadapter.add(myadapter.getItemCount(),"No Events Found", R.drawable.doc);
+                myadapter.add(myadapter.getItemCount(),"No Events Found", 0);
 
             while(c[i].getName()!=null) {
 
-
+            Log.i("event ",c[i].getName()+" "+getImage(c[i].getName()) );
             myadapter.add(myadapter.getItemCount(),
                         c[i].getDesc(), getImage(c[i].getName()));
 
@@ -163,6 +165,7 @@ public class Dept_events extends ActionBarActivity implements NavigationDrawerCa
             while(d[i].getName()!=null) {
 
                 c[j++]=d[i];
+                Log.i("datas",d[i].getName());
                 i++;
             }
 
@@ -269,7 +272,7 @@ public class Dept_events extends ActionBarActivity implements NavigationDrawerCa
         downloaded.setPath(c[position].getPath());
 
 
-        c[position].setName(c[position].getName().replace(" ", "%20"));
+        c[position].setName(c[position].getName());
         DownloadSetup ds=new DownloadSetup(getApplicationContext());
 
         ds.execute(rn, c[position].getName(), downloaded.getPath());
@@ -308,18 +311,19 @@ public class Dept_events extends ActionBarActivity implements NavigationDrawerCa
         protected String doInBackground(String... sUrl) {
             InputStream input = null;
             Log.i("setup", "started");
-            HttpURLConnection connection = null;
+            HttpsURLConnection connection = null;
             try {
+                sUrl[1]=sUrl[1].replace("&","%26").replace(" ","%20");
                 URL url = new URL(ServerPath.path+"AndroidNotes?rollno="+sUrl[0]+"&filename="+sUrl[1]+"&path="+sUrl[2]);
 
-                connection = (HttpURLConnection) url.openConnection();
+                connection = (HttpsURLConnection) url.openConnection();
                 connection.connect();
                 connection.getResponseCode();
 
 
                 // expect HTTP 200 OK, so we don't mistakenly save error report
                 // instead of the file
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                if (connection.getResponseCode() != HttpsURLConnection.HTTP_OK) {
                     System.out.println("Server returned HTTP " + connection.getResponseCode()
                             + " " + connection.getResponseMessage());
                 }
@@ -399,15 +403,15 @@ public class Dept_events extends ActionBarActivity implements NavigationDrawerCa
 
             InputStream input = null;
             OutputStream output = null;
-            HttpURLConnection connection = null;
+            HttpsURLConnection connection = null;
             try {
                 URL url = new URL(sUrl[0]);
-                connection = (HttpURLConnection) url.openConnection();
+                connection = (HttpsURLConnection) url.openConnection();
                 connection.connect();
 
                 // expect HTTP 200 OK, so we don't mistakenly save error report
                 // instead of the file
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                if (connection.getResponseCode() != HttpsURLConnection.HTTP_OK) {
                     return "Server returned HTTP " + connection.getResponseCode()
                             + " " + connection.getResponseMessage();
                 }
@@ -421,6 +425,8 @@ public class Dept_events extends ActionBarActivity implements NavigationDrawerCa
                 File f=new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Portal/");
                 if(!f.exists())
                     f.mkdir();
+
+                sUrl[1]=sUrl[1].replace("%26","&").replace("%20"," ");
                 output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Portal/"+sUrl[1]);
 
                 byte data[] = new byte[4096];
@@ -440,14 +446,14 @@ public class Dept_events extends ActionBarActivity implements NavigationDrawerCa
                 }
                 //For deleting
                 url=new URL(ServerPath.path+"AndroidDelDir?rollno="+rn);
-                connection = (HttpURLConnection) url.openConnection();
+                connection = (HttpsURLConnection) url.openConnection();
                 connection.connect();
                 connection.getResponseCode();
 
 
                 // expect HTTP 200 OK, so we don't mistakenly save error report
                 // instead of the file
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                if (connection.getResponseCode() != HttpsURLConnection.HTTP_OK) {
                     System.out.println("Server returned HTTP " + connection.getResponseCode()
                             + " " + connection.getResponseMessage());
                 }

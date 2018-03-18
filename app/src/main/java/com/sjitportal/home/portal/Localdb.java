@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.ContentValues;
+import android.provider.Settings;
 import android.util.Log;
 
 /**
@@ -15,7 +16,7 @@ public class Localdb extends SQLiteOpenHelper {
 //UPDATION OF ANY COLUMN NAME SHOULD BE DONE IN 4 PLACES ...CREATE_LINE,CLASS,INSERT PLACES
     //public static String sdbname;
     //public static String db_name=sdbname+".db";
-    public static Integer db_ver=1;
+    public static Integer db_ver=2;
 
     public Localdb(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {
@@ -65,7 +66,7 @@ public class Localdb extends SQLiteOpenHelper {
         db.execSQL(q);
 
         //Cycle and Model marks
-        q="CREATE TABLE IF NOT EXISTS  marks_table (rollno varchar(10) DEFAULT NULL,sem varchar(2) DEFAULT NULL,  subcode varchar(10) DEFAULT NULL,cycle1 varchar(10) DEFAULT NULL,  model1 varchar(10) DEFAULT NULL,cycle2 varchar(10) DEFAULT NULL,  model2 varchar(10) DEFAULT NULL,  cycle3 varchar(10) DEFAULT NULL,  model3 varchar(10) DEFAULT NULL);";
+        q="CREATE TABLE IF NOT EXISTS  marks_table (rollno varchar(10) DEFAULT NULL,sem varchar(2) DEFAULT NULL,  subcode varchar(10) DEFAULT NULL,cycle1 varchar(10) DEFAULT NULL,  model1 varchar(10) DEFAULT NULL,cycle2 varchar(10) DEFAULT NULL,  model2 varchar(10) DEFAULT NULL,  cycle3 varchar(10) DEFAULT NULL,  model3 varchar(10) DEFAULT NULL,unit1 varchar(10) DEFAULT NULL,  unit2 varchar(10) DEFAULT NULL,  unit3 varchar(10) DEFAULT NULL,  unit4 varchar(10) DEFAULT NULL);";
         db.execSQL(q);
 
 
@@ -76,7 +77,16 @@ public class Localdb extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        if (oldVersion <= 5) {
+            String q = "ALTER TABLE  marks_table add column unit1 varchar(10) DEFAULT NULL;";
+            db.execSQL(q);
+            q = "ALTER TABLE  marks_table add column unit2 varchar(10) DEFAULT NULL;";
+            db.execSQL(q);
+            q = "ALTER TABLE  marks_table add column unit3 varchar(10) DEFAULT NULL;";
+            db.execSQL(q);
+             q = "ALTER TABLE  marks_table add column unit4 varchar(10) DEFAULT NULL;";
+            db.execSQL(q);
+        }
     }
 
     public void adddpicture(byte[] s )
@@ -158,6 +168,7 @@ public class Localdb extends SQLiteOpenHelper {
 
     public void addmarks(Marks s)
     {
+
         ContentValues values=new ContentValues();
         values.put("sem",s.getSem());
         values.put("subcode",s.getSubcode());
@@ -168,6 +179,9 @@ public class Localdb extends SQLiteOpenHelper {
         values.put("cycle3",s.getCycle3());
         values.put("cycle2",s.getCycle2());
         values.put("model3", s.getModel3());
+        values.put("unit1",s.getUnit1());
+        values.put("unit2",s.getUnit2());
+        values.put("unit3", s.getUnit3());
         SQLiteDatabase db = getWritableDatabase();
         db.insert("marks_table",null,values);
         db.close();
@@ -404,6 +418,19 @@ public class Localdb extends SQLiteOpenHelper {
                 if(c.getString(c.getColumnIndex("sem"))!=null) {
 
                     s[i].setSem(c.getString(c.getColumnIndex("sem")));
+                }
+                if(c.getString(c.getColumnIndex("unit1"))!=null) {
+
+                    s[i].setUnit1(c.getString(c.getColumnIndex("unit1")));
+                }
+                if(c.getString(c.getColumnIndex("unit2"))!=null) {
+
+                    s[i].setUnit2(c.getString(c.getColumnIndex("unit2")));
+                }
+
+                if(c.getString(c.getColumnIndex("unit3"))!=null) {
+
+                    s[i].setUnit3(c.getString(c.getColumnIndex("unit3")));
                 }
             }
             c.moveToNext();

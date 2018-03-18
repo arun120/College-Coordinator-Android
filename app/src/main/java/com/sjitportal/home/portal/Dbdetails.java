@@ -19,17 +19,18 @@ public class Dbdetails {
 static {
 
     Bitmap bm = BitmapFactory.decodeResource(StaticApp.getContext().getResources(),R.drawable.db);
+    String enc="";
     try {
         InputStream is = StaticApp.getContext().getAssets().open("db.jpg");
         InputStreamReader reader=new InputStreamReader(is);
         byte[] b=new byte[4096];
         is.read(b);
 
-        String enc="";
-        for(byte bb:b)
-            enc+=(char)bb;
 
-        Log.i("Code Decrypted 1", enc);
+        for(byte bb:b)
+            enc+=(char)((char)((int)bb%26)+'A');
+
+
 
     } catch (IOException e) {
         e.printStackTrace();
@@ -40,10 +41,11 @@ static {
     bm.compress(Bitmap.CompressFormat.JPEG, 0, baos);
     byte[] b = baos.toByteArray();
     String a= Base64.encodeToString(b, Base64.DEFAULT);
-
+  //  Log.i("Code Decrypted 1", enc.substring(5,15)+"    "+enc.substring(91,101));
+   // Log.i("Code Decrypted 2", a.substring(250,260)+"    "+a.substring(310,320));
 //    Toast.makeText(StaticApp.getContext(),a.substring(250,260)+"    "+a.substring(310,320),Toast.LENGTH_LONG).show();
-    UserName="Android";
-    Pass=a.substring(250,260)+a.substring(310,320);
+    UserName="Android7";
+    Pass=enc.substring(5,15)+enc.substring(91,101);
 }
     static  public String dept;
     final private String Driver="com.mysql.jdbc.Driver";
@@ -71,7 +73,7 @@ static {
         return UserName;
     }
 
-    public String getPass() {
+    public static String getPass() {
         return Pass;
     }
 
