@@ -138,14 +138,10 @@ public class Mark_query extends ActionBarActivity implements NavigationDrawerCal
                 if (position != 0) {
                     List<String> examl = new ArrayList<String>();
                     examl.add("Select Exam");
-                    examl.add("unit1");
-                    examl.add("unit2");
-                    examl.add("unit3");
-                    examl.add("cycle1");
-                    examl.add("cycle2");
-                    examl.add("cycle3");
-                    examl.add("model1");
-                    examl.add("model2");
+                    examl.add("IAE1");
+                    examl.add("IAE2");
+                    examl.add("IAE3");
+                    examl.add("IAE4");
                     examl.add("model3");
 
                     ArrayAdapter<String> dataforexam = new ArrayAdapter<String>(getApplicationContext(), R.layout.row_spn, examl);
@@ -163,7 +159,7 @@ public class Mark_query extends ActionBarActivity implements NavigationDrawerCal
         exam.setOnItemSelectedListener(new com.rey.material.widget.Spinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(com.rey.material.widget.Spinner parent, View view, int position, long id) {
-                examgiven = String.valueOf(exam.getSelectedItem());
+                examgiven = String.valueOf(ExamMap.get((String)exam.getSelectedItem() ) );
                 if (position != 0 && check == 1)
                     check = 2;
             }

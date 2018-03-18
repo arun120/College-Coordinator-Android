@@ -641,7 +641,7 @@ public class Query_execute extends Activity{
     private class Dbconnectformarks extends AsyncTask<String,Void,Void>
     {
         // public String ret=new String();
-        public Marks[] s=new Marks[10];
+        public Marks[] s=new Marks[100];
         List<Marks> list=new ArrayList<>();
 
         @Override
@@ -682,62 +682,68 @@ public class Query_execute extends Activity{
                         String subcode="";
                         for(Object obj:jsonArr)
                         {
-                            Marks s = new Marks();
+                            Marks m = new Marks();
+
                             JSONObject json=(JSONObject)obj;
+                            System.out.println("Server "+ json.get("subcode"));
 
-                            if(!subcode.equals(json.get("subcode"))) {
+
+                                m.setSubcode((String)json.get("subcode"));
+                                m.setSem(sem);
+                                m.setRollno((String)json.get("rollno"));
 
 
-                                subcode=(String)json.get("subcode");
 
-                                s.setSubcode((String)json.get("subcode"));
-                                s.setSem(sem);
-                                s.setRollno((String)json.get("rollno"));
-
-                            }
                             String type=(String)json.get("type");
-
+                            System.out.println(type+" "+(String)json.get("mark"));
 
                             switch (type){
                                 case  "cycle1":
-                                    s.setCycle1((String)json.get("mark"));
+                                    m.setCycle1((String)json.get("mark"));
                                     break;
                                 case "cycle2":
-                                    s.setCycle2((String)json.get("mark"));
+                                    m.setCycle2((String)json.get("mark"));
                                     break;
                                 case "cycle3":
-                                    s.setCycle3((String)json.get("mark"));
+                                    m.setCycle3((String)json.get("mark"));
                                     break;
                                 case  "model1":
-                                    s.setModel1((String)json.get("mark"));
+                                    m.setModel1((String)json.get("mark"));
                                     break;
                                 case "model2":
-                                    s.setModel2((String)json.get("mark"));
+                                    m.setModel2((String)json.get("mark"));
                                     break;
                                 case "model3":
-                                    s.setModel3((String)json.get("mark"));
+                                    m.setModel3((String)json.get("mark"));
                                     break;
                                 case  "unit1":
-                                    s.setUnit1((String)json.get("mark"));
+                                    m.setUnit1((String)json.get("mark"));
                                     break;
                                 case "unit2":
-                                    s.setUnit2((String)json.get("mark"));
+                                    m.setUnit2((String)json.get("mark"));
                                     break;
                                 case "unit3":
-                                    s.setUnit3((String)json.get("mark"));
+                                    m.setUnit3((String)json.get("mark"));
                                     break;
-
+                                case "unit4":
+                                    m.setUnit4((String)json.get("mark"));
+                                    break;
 
                             }
 
-                            list.add(s);
+                            list.add(m);
+
                         }
 
                         if(list.isEmpty())
                             s[0]=new Marks();
-                        else
-                        s= (Marks[]) list.toArray();
-
+                        else {
+                            list.toArray(s);
+                            s[list.size()] = new Marks();
+                            for(Marks a:s)
+                                if(a!=null)
+                                    System.out.println("Return "+a.getSubcode());
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

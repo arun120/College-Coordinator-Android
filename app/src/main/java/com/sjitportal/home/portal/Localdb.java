@@ -66,7 +66,7 @@ public class Localdb extends SQLiteOpenHelper {
         db.execSQL(q);
 
         //Cycle and Model marks
-        q="CREATE TABLE IF NOT EXISTS  marks_table (rollno varchar(10) DEFAULT NULL,sem varchar(2) DEFAULT NULL,  subcode varchar(10) DEFAULT NULL,cycle1 varchar(10) DEFAULT NULL,  model1 varchar(10) DEFAULT NULL,cycle2 varchar(10) DEFAULT NULL,  model2 varchar(10) DEFAULT NULL,  cycle3 varchar(10) DEFAULT NULL,  model3 varchar(10) DEFAULT NULL,unit1 varchar(10) DEFAULT NULL,  unit2 varchar(10) DEFAULT NULL,  unit3 varchar(10) DEFAULT NULL);";
+        q="CREATE TABLE IF NOT EXISTS  marks_table (rollno varchar(10) DEFAULT NULL,sem varchar(2) DEFAULT NULL,  subcode varchar(10) DEFAULT NULL,cycle1 varchar(10) DEFAULT NULL,  model1 varchar(10) DEFAULT NULL,cycle2 varchar(10) DEFAULT NULL,  model2 varchar(10) DEFAULT NULL,  cycle3 varchar(10) DEFAULT NULL,  model3 varchar(10) DEFAULT NULL,unit1 varchar(10) DEFAULT NULL,  unit2 varchar(10) DEFAULT NULL,  unit3 varchar(10) DEFAULT NULL,  unit4 varchar(10) DEFAULT NULL);";
         db.execSQL(q);
 
 
@@ -77,12 +77,14 @@ public class Localdb extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion == 1 && newVersion == 2) {
+        if (oldVersion <= 5) {
             String q = "ALTER TABLE  marks_table add column unit1 varchar(10) DEFAULT NULL;";
             db.execSQL(q);
             q = "ALTER TABLE  marks_table add column unit2 varchar(10) DEFAULT NULL;";
             db.execSQL(q);
             q = "ALTER TABLE  marks_table add column unit3 varchar(10) DEFAULT NULL;";
+            db.execSQL(q);
+             q = "ALTER TABLE  marks_table add column unit4 varchar(10) DEFAULT NULL;";
             db.execSQL(q);
         }
     }

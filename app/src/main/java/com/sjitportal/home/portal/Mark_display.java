@@ -66,10 +66,10 @@ public class Mark_display extends AppCompatActivity{
                 Subject_sem[] d;
                 d=callsubject_sem("select * from subject_sem_table where subcode='"+c[i].getSubcode()+"'");
 
-
-                list.add(d[0].getSubname());
-                list.add(c[i].mark(exam));
-
+                if(c[i].mark(exam)!=null) {
+                    list.add(d[0].getSubname());
+                    list.add(c[i].mark(exam));
+                }
                 i++;
             }
 
@@ -206,6 +206,7 @@ public class Mark_display extends AppCompatActivity{
                 for (int i = 0; c[i].getSem() != null; i++)
                     db.addmarks(c[i]);
               //  Log.i("delerte N add ","over");
+
                 return c;
 
 
@@ -217,6 +218,7 @@ public class Mark_display extends AppCompatActivity{
         }
         else {
             // comm.setText(b[0].getModel1());
+
             return b;
         }
 

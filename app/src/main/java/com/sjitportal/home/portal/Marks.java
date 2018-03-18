@@ -17,6 +17,15 @@ public class Marks {
     private String  unit1;
     private String  unit2;
     private String  unit3;
+    private String unit4;
+
+    public String getUnit4() {
+        return unit4;
+    }
+
+    public void setUnit4(String unit4) {
+        this.unit4 = unit4;
+    }
 
     public String getUnit1() {
         return unit1;
@@ -139,7 +148,8 @@ public class Marks {
             return getUnit2();
         else if(exam.equals("unit3"))
             return getUnit3();
-
+        else if (exam.equals("unit4"))
+            return getUnit4();
         return null;
 
     }
